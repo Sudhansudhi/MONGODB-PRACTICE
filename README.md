@@ -5,9 +5,8 @@
 2. [Installation](#installation)
     - [Windows](#windows)
     - [macOS](#macos)
-    - [Linux](#linux)
 3. [Setting up MongoDB Compass](#setting-up-mongodb-compass)
-4. [CRUD Operations in MongoDB Compass](#crud-operations-in-mongodb-compass)
+4. [CRUD Operations in MongoDB](#crud-operations-in-mongodb)
     - [Create](#create)
     - [Read](#read)
     - [Update](#update)
@@ -66,47 +65,64 @@ This guide provides step-by-step instructions for installing MongoDB on various 
      - Port: `27017`
    - Click on "Connect".
 
-## CRUD Operations in MongoDB Compass
+## CRUD Operations in MongoDB
 
 ### Create
-1. **Create a Database**:
-   - Click on the `+` icon next to "My Cluster".
-   - Enter a database name and collection name, then click "Create Database".
+To insert a document into a collection, use the `insertOne` method. Below is an example of inserting a document into a `users` collection:
 
-2. **Insert a Document**:
-   - Select your database and collection.
-   - Click on "Insert Document".
-   - Add fields and values in the JSON document editor, then click "Insert".
+```javascript
+db.users.insertOne({
+  name: "Virat",
+  age: 36,
+  email: "virat@18.com"
+});
+```
+To insert multiple documents at once, use the insertMany method. Below is an example of inserting multiple documents into the users collection:
+```javascript
+db.users.insertMany([
+  { name: "Alice", age: 25, email: "alice@example.com" },
+  { name: "Bob", age: 30, email: "bob@example.com" },
+  { name: "Charlie", age: 35, email: "charlie@example.com" }
+]);
+```
 
-### Read
-1. **View Documents**:
-   - Select your database and collection.
-   - Documents will be displayed in the main window.
+## Read
 
-2. **Filter Documents**:
-   - Use the "Filter" box to query documents. For example, to find documents where `name` is "John", enter:
-     ```json
-     { "name": "John" }
-     ```
+To query documents from a collection, use the find method. Below is an example of querying all documents in the users collection:
 
-### Update
-1. **Update a Document**:
-   - Select the document you want to update.
-   - Click on the pencil icon to edit the document.
-   - Modify the fields and values, then click "Update".
+```javascript
+db.users.find();
+```
+To find documents with a specific field value, use a query object:
 
-2. **Bulk Update**:
-   - Use the "Update Many" option to update multiple documents at once by specifying a filter and update criteria.
+```javascript
+db.users.find({ name: "Virat" });
+```
+## Update
 
-### Delete
-1. **Delete a Document**:
-   - Select the document you want to delete.
-   - Click on the trash can icon to delete the document.
+To update a document, use the updateOne method. Below is an example of updating the age of the user with the name "Virat":
+```javascript
+db.users.updateOne(
+  { name: "Virat" },
+  { $set: { age: 30 } }
+);
 
-2. **Delete Multiple Documents**:
-   - Use the "Delete Many" option to delete documents that match a specific filter.
+```
+To update multiple documents, use the updateMany method:
+```javascript
+db.users.updateMany(
+  { age: { $gt: 25 } },
+  { $set: { status: "active" } }
+);
 
-## Additional Resources
-- [MongoDB Documentation](https://docs.mongodb.com/)
-- [MongoDB Compass Documentation](https://docs.mongodb.com/compass/current/)
-- [MongoDB University](https://university.mongodb.com/)
+```
+## Delete
+
+To delete a document, use the deleteOne method. Below is an example of deleting the user with the name "Virat":
+```javascript
+db.users.deleteOne({ name: "Alice" });
+```
+To delete multiple documents, use the deleteMany method:
+```javascript
+db.users.deleteMany({ status: "inactive" });
+```
