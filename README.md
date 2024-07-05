@@ -52,37 +52,6 @@ This guide provides step-by-step instructions for installing MongoDB on various 
      brew services start mongodb/brew/mongodb-community
      ```
 
-### Linux
-1. **Import the MongoDB public GPG Key**:
-   - Run:
-     ```bash
-     wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
-     ```
-   
-2. **Create a list file for MongoDB**:
-   - Run:
-     ```bash
-     echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
-     ```
-   
-3. **Reload local package database**:
-   - Run:
-     ```bash
-     sudo apt-get update
-     ```
-   
-4. **Install MongoDB packages**:
-   - Run:
-     ```bash
-     sudo apt-get install -y mongodb-org
-     ```
-   
-5. **Start MongoDB**:
-   - Run:
-     ```bash
-     sudo systemctl start mongod
-     ```
-
 ## Setting up MongoDB Compass
 1. **Download MongoDB Compass**:
    - Visit the [MongoDB Compass Download page](https://www.mongodb.com/products/compass) and download the installer for your operating system.
@@ -141,4 +110,3 @@ This guide provides step-by-step instructions for installing MongoDB on various 
 - [MongoDB Documentation](https://docs.mongodb.com/)
 - [MongoDB Compass Documentation](https://docs.mongodb.com/compass/current/)
 - [MongoDB University](https://university.mongodb.com/)
-
