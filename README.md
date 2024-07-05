@@ -1,5 +1,3 @@
-# MongoDB Installation and CRUD Operations Guide
-
 ## Table of Contents
 1. [Introduction](#introduction)
 2. [Installation](#installation)
@@ -68,61 +66,94 @@ This guide provides step-by-step instructions for installing MongoDB on various 
 ## CRUD Operations in MongoDB
 
 ### Create
-To insert a document into a collection, use the `insertOne` method. Below is an example of inserting a document into a `users` collection:
+
+SYNTAX : db.createCollection( “<collection_name>“):
+
+CREATING A COLLECTION USING TERMINAL:
+
+COLLECTION NAME
 
 ```javascript
-db.users.insertOne({
-  name: "Virat",
-  age: 36,
-  email: "virat@18.com"
-});
+db.createCollection( "authors")
+```
+To insert a document into a collection, use the `insertOne` method. Below is an example of inserting a document into a `authors` collection:
+
+```javascript
+db.authors.insertOne(
+	{  _id: 1,
+	   name: "J.K. Rowling", 
+	   nationality: "British", 
+	   age: 56, 
+	   notable_works: ["Harry Potter series", 
+		       "The Casual Vacancy"]  
+	}, 
+	{writeConcern: {w: "majority"}})
+
 ```
 To insert multiple documents at once, use the insertMany method. Below is an example of inserting multiple documents into the users collection:
 ```javascript
-db.users.insertMany([
-  { name: "Alice", age: 25, email: "alice@example.com" },
-  { name: "Bob", age: 30, email: "bob@example.com" },
-  { name: "Charlie", age: 35, email: "charlie@example.com" }
-]);
+db.authors.insertMany([
+	{  _id: 2,
+	   name: "George R.R. Martin", 
+	   nationality: "American", 
+	   age: 37, 
+	   notable_works: ["A Song of Ice and Fire series"]  
+	},
+	{  _id: 3,
+	   name: "Agatha Christie", 
+	   nationality: "British", 
+	   age: 60, 
+	   notable_works: ["Murder on the Orient Express",
+		       "The Murder of Roger Ackroyd"]  
+	}],
+	{writeConcern: {w: "majority"},
+	ordered: false})
 ```
 
 ## Read
 
-To query documents from a collection, use the find method. Below is an example of querying all documents in the users collection:
+To query documents from a collection, use the find method. Below is an example of querying all documents in the authors collection:
 
 ```javascript
-db.users.find();
+db.authors.find()
 ```
-To find documents with a specific field value, use a query object:
+To find documents with a specific field value, find the author whose age is $lt (less than) 50 :
 
 ```javascript
-db.users.find({ name: "Virat" });
+db.authors.find(
+	{
+		age:{$lt:50}
+	})
 ```
 ## Update
 
-To update a document, use the updateOne method. Below is an example of updating the age of the user with the name "Virat":
+To update a document, use the updateOne method. Below is an example of updating the age of the user with the name "J.K Rowling":
 ```javascript
-db.users.updateOne(
-  { name: "Virat" },
+db.authors.updateOne(
+  { name: "J.K. Rowling" },
   { $set: { age: 30 } }
-);
+)
 
 ```
 To update multiple documents, use the updateMany method:
 ```javascript
-db.users.updateMany(
-  { age: { $gt: 25 } },
-  { $set: { status: "active" } }
-);
+db.authors.updateMany(
+  { age: { $gt: 59 } },
+  { $set: { nationality : "Indian" } }
+)
 
 ```
 ## Delete
 
-To delete a document, use the deleteOne method. Below is an example of deleting the user with the name "Virat":
+To delete a document, use the deleteOne method. Below is an example of deleting the user with the name "Agatha Christie":
 ```javascript
-db.users.deleteOne({ name: "Alice" });
+db.authors.deleteOne({ "name": "Agatha Christie" })
 ```
 To delete multiple documents, use the deleteMany method:
 ```javascript
-db.users.deleteMany({ status: "inactive" });
+db.authors.deleteMany({ nationality : "British" })
 ```
+## Additional Resources
+- [MongoDB Documentation](https://docs.mongodb.com/)
+- [MongoDB Compass Documentation](https://docs.mongodb.com/compass/current/)
+- [MongoDB University](https://university.mongodb.com/)
